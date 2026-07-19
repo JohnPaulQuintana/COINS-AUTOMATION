@@ -1,31 +1,31 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
-import { getPrices } from "../api/priceApi";
+// import { getPrices } from "../api/priceApi";
 
-import type { Price } from "../types/price";
+// import type { Price } from "../types/price";
 
-export function usePrices() {
-  const [prices, setPrices] = useState<Price[]>([]);
+// export function usePrices() {
+//   const [prices, setPrices] = useState<Price[]>([]);
 
-  const [loading, setLoading] = useState(true);
+//   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const data = await getPrices();
+//   useEffect(() => {
+//     async function load() {
+//       try {
+//         const data = await getPrices();
 
-        console.log(data)
-        setPrices(data);
-      } finally {
-        setLoading(false);
-      }
-    }
+//         console.log(data)
+//         setPrices(data);
+//       } finally {
+//         setLoading(false);
+//       }
+//     }
 
-    load();
-  }, []);
+//     load();
+//   }, []);
 
-  return {
-    prices,
-    loading,
-  };
-}
+//   return {
+//     prices,
+//     loading,
+//   };
+// }
