@@ -1,110 +1,90 @@
 import { useEffect, useState } from "react";
-import { TrendingUp } from "lucide-react";
+import { TrendingUp, LoaderCircle } from "lucide-react";
 
-const currencies = ["BTC", "ETH", "USDT", "BNB"];
+const status = [
+  "Connecting to automation service...",
+  "Reading latest Google Sheet...",
+  "Analyzing market trends...",
+  "Preparing dashboard...",
+];
 
 export default function LoadingScreen() {
-  const [rows, setRows] = useState(0);
-  const [active, setActive] = useState(0);
+  const [message, setMessage] = useState(0);
 
   useEffect(() => {
-    const rowsInterval = setInterval(() => {
-      setRows((v) => v + Math.floor(Math.random() * 600 + 200));
-    }, 120);
+    const interval = setInterval(() => {
+      setMessage((prev) => (prev + 1) % status.length);
+    }, 2500);
 
-    const activeInterval = setInterval(() => {
-      setActive((v) => (v + 1) % currencies.length);
-    }, 700);
-
-    return () => {
-      clearInterval(rowsInterval);
-      clearInterval(activeInterval);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-white via-emerald-50 to-white">
 
-      <div className="w-full max-w-lg">
+      {/* Background Blur */}
+      <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-emerald-200/40 blur-3xl" />
+      <div className="absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-green-100 blur-3xl" />
 
-        <div className="flex justify-center mb-8">
+      <div className="relative w-full max-w-md rounded-3xl border border-emerald-100 bg-white/90 p-10 shadow-xl backdrop-blur">
 
-          <div className="w-20 h-20 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center">
+        {/* Logo */}
+        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-emerald-100">
 
-            <TrendingUp
-              className="text-emerald-400 animate-pulse"
-              size={42}
-            />
-
-          </div>
+          <TrendingUp
+            size={38}
+            className="text-emerald-600 animate-pulse"
+          />
 
         </div>
 
-        <h1 className="text-center text-3xl font-bold text-white">
+        <h1 className="mt-6 text-center text-3xl font-bold text-slate-800">
           Crypto Monitoring
         </h1>
 
-        <p className="text-center text-slate-400 mt-2">
-          Fetching latest market data...
+        <p className="mt-2 text-center text-slate-500">
+          Loading the latest market trends
         </p>
 
-        <div className="mt-10 h-1 rounded-full overflow-hidden bg-slate-800">
+        {/* Animated Progress */}
+        <div className="mt-8 overflow-hidden rounded-full bg-emerald-100 h-2">
 
-          <div className="h-full w-1/3 bg-emerald-400 animate-[loading_1.2s_linear_infinite]" />
-
-        </div>
-
-        <div className="mt-10 space-y-4">
-
-          {currencies.map((currency, index) => (
-
-            <div
-              key={currency}
-              className={`flex justify-between items-center rounded-lg px-4 py-3 transition-all duration-300 ${
-                active === index
-                  ? "bg-emerald-500/10 border border-emerald-500/30"
-                  : "bg-slate-900"
-              }`}
-            >
-
-              <span className="text-white font-medium">
-                {currency}
-              </span>
-
-              <span className="text-emerald-400">
-
-                {active === index ? (
-                  "Synchronizing..."
-                ) : (
-                  "Waiting"
-                )}
-
-              </span>
-
-            </div>
-
-          ))}
+          <div className="loading-bar h-full rounded-full bg-gradient-to-r from-emerald-500 to-green-400" />
 
         </div>
 
-        <div className="mt-8 text-center">
+        {/* Status */}
+        <div className="mt-8 flex items-center justify-center gap-3">
 
-          <div className="text-4xl font-bold text-emerald-400">
-            {rows.toLocaleString()}
-          </div>
+          <LoaderCircle className="animate-spin text-emerald-600" size={18} />
 
-          <div className="text-slate-500 mt-1">
-            records processed
-          </div>
+          <span className="text-sm font-medium text-slate-700">
+            {status[message]}
+          </span>
 
         </div>
+
+        {/* Info */}
+        <p className="mt-8 text-center text-xs leading-6 text-slate-500">
+          Large datasets may take a few moments while the automation service
+          processes and analyzes the latest spreadsheet data.
+        </p>
 
       </div>
 
       <style>{`
+        .loading-bar{
+          width:35%;
+          animation:loading 1.4s linear infinite;
+        }
+
         @keyframes loading{
-          from{transform:translateX(-120%)}
-          to{transform:translateX(420%)}
+          from{
+            transform:translateX(-120%);
+          }
+          to{
+            transform:translateX(420%);
+          }
         }
       `}</style>
 
