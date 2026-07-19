@@ -24,6 +24,7 @@ import {
   Calendar,
   Filter,
 } from "lucide-react";
+import LoadingScreen from "./LoadingScreen";
 
 // Memoized chart component to prevent unnecessary re-renders
 const ChartRenderer = memo(({ data, chartType, timeRange, filterDataByTimeRange }: any) => {
@@ -294,12 +295,13 @@ export default function TrendDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
-        <div className="flex flex-col items-center gap-4">
-          <RefreshCw className="w-12 h-12 text-emerald-600 animate-spin" />
-          <p className="text-slate-600 font-medium">Loading market trends...</p>
-        </div>
-      </div>
+      <LoadingScreen />
+      // <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
+      //   <div className="flex flex-col items-center gap-4">
+      //     <RefreshCw className="w-12 h-12 text-emerald-600 animate-spin" />
+      //     <p className="text-slate-600 font-medium">Loading market trends...</p>
+      //   </div>
+      // </div>
     );
   }
 
