@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const api = axios.create({
-    baseURL: "/api"
+    baseURL: "https://crypto-monitoring-ajh4.onrender.com/api"
 });
 
 
