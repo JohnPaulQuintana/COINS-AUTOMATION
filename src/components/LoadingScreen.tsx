@@ -6,7 +6,7 @@ import {
   TrendingUp,
   CheckCircle2,
   Clock3,
-  Sparkles,
+//   Sparkles,
 } from "lucide-react";
 
 const loadingSteps = [
