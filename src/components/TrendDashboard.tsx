@@ -424,7 +424,8 @@ export default function TrendDashboard() {
             const change = metrics.changes[currency] || 0;
             const isPositive = change >= 0;
             const currentRate = filteredData[filteredData.length - 1]?.exchange_rate || 0;
-
+             const yesterdayRate =
+              filteredData[filteredData.length - 2]?.exchange_rate || 0;
             return (
               <div
                 key={currency}
@@ -460,13 +461,14 @@ export default function TrendDashboard() {
                       <div className="h-6 w-px bg-slate-200" />
                       <div>
                         <p className="text-xs text-slate-500 font-medium">
-                          {timeRange === "ALL" ? "Change" : `${timeRange} Change`}
+                          {/* {timeRange === "ALL" ? "Change" : `${timeRange} Change`} */}
+                            Yesterday Rate
                         </p>
                         <p
-                          className={`text-base font-bold ${getChangeColor(change)}`}
+                          className={`text-base font-bold ${getChangeColor(yesterdayRate)}`}
                         >
-                          {change !== 0
-                            ? `${isPositive ? "+" : ""}${change.toFixed(2)}%`
+                          {yesterdayRate !== 0
+                            ? `${isPositive ? "+" : ""}${yesterdayRate.toFixed(2)}%`
                             : "0.00%"}
                         </p>
                       </div>
