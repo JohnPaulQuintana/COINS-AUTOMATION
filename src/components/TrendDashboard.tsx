@@ -455,7 +455,7 @@ export default function TrendDashboard() {
                           Current Rate
                         </p>
                         <p className="text-base font-bold text-slate-900">
-                          ${currentRate.toFixed(4)}
+                          ${currentRate.toFixed(2)}
                         </p>
                       </div>
                       <div className="h-6 w-px bg-slate-200" />
@@ -468,7 +468,7 @@ export default function TrendDashboard() {
                           className={`text-base font-bold ${getChangeColor(yesterdayRate)}`}
                         >
                           {yesterdayRate !== 0
-                            ? `${isPositive ? "+" : ""}${yesterdayRate.toFixed(2)}%`
+                            ? `${isPositive ? "+" : ""}${yesterdayRate.toFixed(2)}`
                             : "0.00%"}
                         </p>
                       </div>
